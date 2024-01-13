@@ -26,7 +26,7 @@ export default class Task {
         if (priorities.includes(priority)) {
             this._priority = priority;
         } else {
-            throw 'Error: No valid priority';
+            console.error('Uncaught Error: No valid priority');
         }
     }
 
@@ -35,11 +35,11 @@ export default class Task {
             this._dueDate = date;
             this._timeLeft = formatDistanceToNow(date);
         } else {
-            throw 'Error: No valid Date object';
+            console.error('Uncaught Error: No valid Date object');
         }
     }
 
     set timeLeft(value) {
-        throw 'Error: Can\'t change value of timeLeft';
+        console.error('Uncaught Error: Can\'t change value of timeLeft');
     }
 }
