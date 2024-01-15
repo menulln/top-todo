@@ -1,5 +1,6 @@
 export default class ProjectManager {
 
+    static currentProject;
     static projects = [];
 
     static addProject(project) {
