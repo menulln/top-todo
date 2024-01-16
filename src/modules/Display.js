@@ -39,6 +39,10 @@ export default class Display {
                 ProjectManager.currentProject = project;
             });
     
+            li.addEventListener('dblclick', () => {
+                this.renderProjectModal('rename', project);
+            });
+    
             li.appendChild(projectTitle);
             li.appendChild(closeIcon);
             ul.appendChild(li);
@@ -48,7 +52,9 @@ export default class Display {
         const newProjectParagraph = document.createElement('p');
         newProjectParagraph.textContent = '+';
     
-        newProjectParagraph.addEventListener('click', this.renderNewProjectModal); 
+        newProjectParagraph.addEventListener('click', () => {
+            this.renderProjectModal('new', undefined);
+        }); 
     
         li.appendChild(newProjectParagraph);
         ul.appendChild(li);
@@ -109,7 +115,7 @@ export default class Display {
         main.appendChild(ul);
     }
 
-    static renderNewProjectModal() {
+    static renderProjectModal(type, project) {
         const main = document.querySelector('main');
         const nav = document.querySelector('nav');
 
@@ -121,18 +127,30 @@ export default class Display {
         const titleInput = document.createElement('input');
         const confirmButton = document.createElement('button');
 
-        modalTitle.textContent = 'Add new Project';
+        if (type === 'new') {
+            modalTitle.textContent = 'Add new Project';
+
+            confirmButton.addEventListener('click', () => {
+                ProjectManager.addProject(new Project(titleInput.value));
+                Display.renderProjects(ProjectManager.projects);
+                dialog.close();
+                dialog.remove();
+                console.log(ProjectManager.projects);
+            });
+        } else if (type === 'rename') {
+            modalTitle.textContent = 'Rename Project';
+
+            confirmButton.addEventListener('click', () => {
+                project.title = titleInput.value;
+                Display.renderProjects(ProjectManager.projects);
+                dialog.close();
+                dialog.remove();
+                console.log(ProjectManager.projects);
+            });
+        }
+
         closeIcon.textContent = '\u{00D7}';
         confirmButton.textContent = 'Confirm';
-
-        confirmButton.addEventListener('click', () => {
-            ProjectManager.addProject(new Project(titleInput.value));
-            Display.renderProjects(ProjectManager.projects);
-            dialog.close();
-            dialog.remove();
-            console.log(ProjectManager.projects);
-
-        });
 
         dialog.addEventListener('close', () => {
             nav.style.filter = '';
@@ -149,7 +167,6 @@ export default class Display {
 
         main.appendChild(dialog);
         dialog.showModal();
-
     }
 
     static renderNewTaskModal() {
