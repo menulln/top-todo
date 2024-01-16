@@ -45,17 +45,12 @@ export default class Display {
         });
     
         const li = document.createElement('li');
-        const p = document.createElement('p');
-        p.textContent = '+';
+        const newProjectParagraph = document.createElement('p');
+        newProjectParagraph.textContent = '+';
     
-        p.addEventListener('click', () => {
-            console.log(ProjectManager.projects);
-            const test = new Project('test');
-            ProjectManager.addProject(test);
-            Display.renderProjects(ProjectManager.projects);
-        }); 
+        newProjectParagraph.addEventListener('click', this.renderNewProjectModal); 
     
-        li.appendChild(p);
+        li.appendChild(newProjectParagraph);
         ul.appendChild(li);
         nav.appendChild(ul);
     }
@@ -112,6 +107,49 @@ export default class Display {
         ul.appendChild(li);
     
         main.appendChild(ul);
+    }
+
+    static renderNewProjectModal() {
+        const main = document.querySelector('main');
+        const nav = document.querySelector('nav');
+
+        const dialog = document.createElement('dialog');
+
+        const modalTitle = document.createElement('h3');
+        const closeIcon = document.createElement('i');   
+
+        const titleInput = document.createElement('input');
+        const confirmButton = document.createElement('button');
+
+        modalTitle.textContent = 'Add new Project';
+        closeIcon.textContent = '\u{00D7}';
+        confirmButton.textContent = 'Confirm';
+
+        confirmButton.addEventListener('click', () => {
+            ProjectManager.addProject(new Project(titleInput.value));
+            Display.renderProjects(ProjectManager.projects);
+            dialog.close();
+            dialog.remove();
+            console.log(ProjectManager.projects);
+
+        });
+
+        dialog.addEventListener('close', () => {
+            nav.style.filter = '';
+            main.style.filter = '';
+        });
+
+        dialog.appendChild(modalTitle);
+        dialog.appendChild(closeIcon);
+        dialog.appendChild(titleInput);
+        dialog.appendChild(confirmButton);
+
+        nav.style.filter = 'blur(5px)';
+        main.style.filter = 'blur(5px)';
+
+        main.appendChild(dialog);
+        dialog.showModal();
+
     }
 
     static renderNewTaskModal() {
@@ -197,11 +235,14 @@ export default class Display {
                 Display.renderProject(ProjectManager.currentProject);
                 dialog.close();
                 dialog.remove();
-                nav.style.filter = '';
-                main.style.filter = '';
             }
         });              
     
+        dialog.addEventListener('close', () => {
+            nav.style.filter = '';
+            main.style.filter = '';
+        });
+
         nav.style.filter = 'blur(5px)';
         main.style.filter = 'blur(5px)';
     
