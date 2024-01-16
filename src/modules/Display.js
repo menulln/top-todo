@@ -34,7 +34,7 @@ export default class Display {
             projectTitle.classList.toggle('project-title');
             closeIcon.classList.toggle('close-icon');
     
-            projectTitle.addEventListener('click', () => {
+            li.addEventListener('click', () => {
                 this.renderProject(project);
                 ProjectManager.currentProject = project;
             });
