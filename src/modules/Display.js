@@ -108,4 +108,95 @@ export default class Display {
     
         main.appendChild(ul);
     }
+
+    static renderNewTaskModal() {
+        const main = document.querySelector('main');
+    
+        const dialog = document.createElement('dialog');
+    
+        const modalTitle = document.createElement('h3');
+        const closeIcon = document.createElement('i');        
+    
+        const modalForm = document.createElement('form');
+        
+        const titleLabel = document.createElement('label');
+        const titleInput = document.createElement('input');
+    
+        const descriptionLabel = document.createElement('label');
+        const descriptionInput = document.createElement('textarea');
+    
+        const priorityLabel = document.createElement('label');
+        const priorityInput = document.createElement('select');
+        const priorityHigh = document.createElement('option');
+        const priorityMedium = document.createElement('option');
+        const priorityLow = document.createElement('option');
+    
+        const dateLabel = document.createElement('label');
+        const dateInput = document.createElement('input');
+    
+        const confirmButton = document.createElement('button');
+    
+        modalTitle.textContent = 'Add new Task';
+        closeIcon.textContent = '\u{00D7}';
+    
+        titleLabel.textContent = 'Title';
+        descriptionLabel.textContent = 'Description';
+        priorityLabel.textContent = 'Priority';
+        priorityHigh.textContent = 'High';
+        priorityMedium.textContent = 'Medium';
+        priorityLow.textContent = 'Low';
+        dateLabel.textContent = 'Due by';
+    
+        confirmButton.textContent = 'Confirm';
+    
+        titleInput.id = 'newTaskTitle';
+        descriptionInput.id = 'newTaskDescription';
+        priorityInput.id = 'newTaskPriority';
+        dateInput.id = 'newTaskDate';
+    
+        titleLabel.for = 'newTaskTitle';
+        descriptionLabel.for = 'newTaskDescription';
+        priorityLabel.for = 'newTaskPriority';
+        dateLabel.for = 'newTaskDate';
+    
+        priorityHigh.value = 'high';
+        priorityMedium.value = 'medium';
+        priorityLow.value = 'low';
+    
+        dateInput.type = 'datetime-local'
+        dateInput.min = new Date().toJSON().toString().substring(0, 16);
+    
+        priorityInput.appendChild(priorityHigh);
+        priorityInput.appendChild(priorityMedium);
+        priorityInput.appendChild(priorityLow);
+    
+        modalForm.appendChild(titleLabel);
+        modalForm.appendChild(titleInput);
+        modalForm.appendChild(descriptionLabel);
+        modalForm.appendChild(descriptionInput);
+        modalForm.appendChild(priorityLabel);
+        modalForm.appendChild(priorityInput);
+        modalForm.appendChild(dateLabel);
+        modalForm.appendChild(dateInput);
+    
+        dialog.appendChild(modalTitle);
+        dialog.appendChild(closeIcon);
+        dialog.appendChild(modalForm);
+        dialog.appendChild(confirmButton);
+                  
+        confirmButton.addEventListener('click', (e) => {
+            if (!isPast(dateInput.value) && dateInput.value) {
+                const newTask = new Task(titleInput.value, descriptionInput.value, priorityInput.value, dateInput.value);
+                ProjectManager.currentProject.addTask(newTask);
+                Display.renderProject(ProjectManager.currentProject);
+                dialog.close();
+                dialog.remove();
+            }
+        });              
+    
+        // document.body.children.style.filter = 'blur(5px)';
+    
+        main.appendChild(dialog);
+        dialog.showModal();
+    }
 }
