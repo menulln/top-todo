@@ -52,7 +52,7 @@ export default class Display {
         const newProjectParagraph = document.createElement('p');
         newProjectParagraph.textContent = '+';
     
-        newProjectParagraph.addEventListener('click', () => {
+        li.addEventListener('click', () => {
             this.renderProjectModal('new', undefined);
         }); 
     
