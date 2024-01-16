@@ -116,6 +116,7 @@ export default class Display {
 
     static renderNewTaskModal() {
         const main = document.querySelector('main');
+        const nav = document.querySelector('nav');
     
         const dialog = document.createElement('dialog');
     
@@ -196,10 +197,13 @@ export default class Display {
                 Display.renderProject(ProjectManager.currentProject);
                 dialog.close();
                 dialog.remove();
+                nav.style.filter = '';
+                main.style.filter = '';
             }
         });              
     
-        // document.body.children.style.filter = 'blur(5px)';
+        nav.style.filter = 'blur(5px)';
+        main.style.filter = 'blur(5px)';
     
         main.appendChild(dialog);
         dialog.showModal();
