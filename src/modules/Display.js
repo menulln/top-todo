@@ -54,4 +54,58 @@ export default class Display {
         ul.appendChild(li);
         nav.appendChild(ul);
     }
+
+    static renderProject(project) {
+        if (document.querySelector('.project')) {
+            const ul = document.querySelector('.project');
+            ul.remove();
+        }
+    
+        const main = document.querySelector('main');
+        const ul = document.createElement('ul');
+    
+        ul.classList.toggle('project');
+    
+        project.tasks.forEach((task) => {
+            const li = document.createElement('li');
+            const arrowIcon = document.createElement('i');
+            const taskTitle = document.createElement('p');
+            const priority = document.createElement('i');
+            const timeLeft = document.createElement('p');
+            const checkbox = document.createElement('i');
+    
+            arrowIcon.textContent = '\u{25BE}';
+            taskTitle.textContent = task.title;
+            timeLeft.textContent = task.timeLeft;
+    
+            li.classList.toggle('task');
+            arrowIcon.classList.toggle('arrow-icon');
+            taskTitle.classList.toggle('task-title');
+            priority.classList.toggle('priority');
+            priority.classList.toggle(`priority-${task.priority}`);
+            timeLeft.classList.toggle('time-left');
+            checkbox.classList.toggle('checkbox');
+    
+            li.appendChild(arrowIcon);
+            li.appendChild(taskTitle);
+            li.appendChild(priority);
+            li.appendChild(timeLeft);
+            li.appendChild(checkbox);
+            
+            ul.appendChild(li);
+        });
+    
+        const li = document.createElement('li');
+        const newTaskParagraph = document.createElement('p');
+    
+        newTaskParagraph.textContent = '+ New';
+        li.classList.toggle('add-project');
+    
+        li.addEventListener('click', this.renderNewTaskModal);
+    
+        li.appendChild(newTaskParagraph);
+        ul.appendChild(li);
+    
+        main.appendChild(ul);
+    }
 }
