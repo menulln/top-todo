@@ -75,7 +75,7 @@ export default class Display {
         project.tasks.forEach((task) => {
             const li = document.createElement('li');
             const arrowIcon = document.createElement('i');
-            const taskTitle = document.createElement('p');
+            const taskTitle = document.createElement('h4');
             const priority = document.createElement('i');
             const timeLeft = document.createElement('p');
             const checkbox = document.createElement('i');
@@ -91,7 +91,58 @@ export default class Display {
             priority.classList.toggle(`priority-${task.priority}`);
             timeLeft.classList.toggle('time-left');
             checkbox.classList.toggle('checkbox');
-    
+
+            li.addEventListener('click', () => {
+                const taskTitleToClass = task.title.toLowerCase().split(' ').join('-');
+
+                const detailsDiv = document.querySelector(`.${taskTitleToClass}`);
+
+                if (detailsDiv) {
+                    detailsDiv.remove();
+                    return;
+                }
+
+                const div = document.createElement('div');
+
+                div.classList.toggle('collapsible-content');
+                div.classList.toggle(taskTitleToClass);
+                
+                const collapsibleTitle = document.createElement('h4');
+                const collapsibleDescription = document.createElement('p');
+                const collapsiblePriorityTitle = document.createElement('h4');
+                const collapsiblePriority = document.createElement('i');
+                const collapsibleDueDateTitle = document.createElement('h4');
+                const collapsibleDueDate = document.createElement('p');
+                const collapsibleTimeLeftTitle = document.createElement('h4');
+                const collapsibleTimeLeft = document.createElement('p');
+                const collapsibleEditButton = document.createElement('button');
+                const collapsibleDeleteButton = document.createElement('button');
+
+                collapsibleTitle.textContent = task.title;
+                collapsibleDescription.textContent = task.description;
+                collapsiblePriorityTitle.textContent = 'Priority';
+                collapsiblePriority.textContent = task.priority;
+                collapsibleDueDateTitle.textContent = 'Due by';
+                collapsibleDueDate.textContent = task.formattedDueDate;
+                collapsibleTimeLeftTitle.textContent = 'Time left';
+                collapsibleTimeLeft.textContent = task.timeLeft;
+                collapsibleEditButton.textContent = 'Edit';
+                collapsibleDeleteButton.textContent = 'Delete';
+
+                div.appendChild(collapsibleTitle);
+                div.appendChild(collapsibleDescription);
+                div.appendChild(collapsiblePriorityTitle);
+                div.appendChild(collapsiblePriority);
+                div.appendChild(collapsibleDueDateTitle);
+                div.appendChild(collapsibleDueDate);
+                div.appendChild(collapsibleTimeLeftTitle);
+                div.appendChild(collapsibleTimeLeft);
+                div.appendChild(collapsibleEditButton);
+                div.appendChild(collapsibleDeleteButton);
+                
+                li.appendChild(div);
+            });
+
             li.appendChild(arrowIcon);
             li.appendChild(taskTitle);
             li.appendChild(priority);
