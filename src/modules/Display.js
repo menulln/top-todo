@@ -137,7 +137,6 @@ export default class Display {
                 collapsibleEditButton.addEventListener('click', (e) => {
                     e.stopPropagation();
                     this.renderTaskModal('edit', task);
-
                 });
 
                 collapsibleDeleteButton.addEventListener('click', (e) => {
