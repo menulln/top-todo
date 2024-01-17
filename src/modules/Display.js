@@ -336,7 +336,7 @@ export default class Display {
                     task.title = titleInput.value;
                     task.description = descriptionInput.value;
                     task.priority = priorityInput.value;
-                    task.dueDate = dateInput.value;
+                    task.dueDate = new Date(dateInput.value);
             
                     Display.renderProject(ProjectManager.currentProject);
                     dialog.close();
