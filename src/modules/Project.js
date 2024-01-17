@@ -11,7 +11,7 @@ export default class Project {
     deleteTask(taskTitle) {
         this.tasks.forEach((task) => {
             if (task.title === taskTitle) {
-                return this.tasks.splice(this.tasks.indexOf(task.title) - 1, 1);
+                return this.tasks.splice(this.tasks.findIndex((task) => task.title === taskTitle), 1);
             }
         });
     }
