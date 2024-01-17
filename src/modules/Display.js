@@ -159,6 +159,13 @@ export default class Display {
                 li.appendChild(div);
             });
 
+            checkbox.addEventListener('click', (e) => {
+                e.stopPropagation();
+                taskTitle.classList.toggle('done');
+                timeLeft.classList.toggle('done');
+                checkbox.classList.toggle('checked');
+            });
+
             li.appendChild(arrowIcon);
             li.appendChild(taskTitle);
             li.appendChild(priority);
