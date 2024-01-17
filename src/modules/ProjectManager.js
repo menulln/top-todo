@@ -10,7 +10,7 @@ export default class ProjectManager {
     static deleteProject(projectTitle) {
         this.projects.forEach((project) => {
             if (project.title === projectTitle) {
-                return this.projects.splice(this.projects.findIndex((task) => project.title === projectTitle), 1);
+                return this.projects.splice(this.projects.findIndex((project) => project.title === projectTitle), 1);
             }
         });
     }
