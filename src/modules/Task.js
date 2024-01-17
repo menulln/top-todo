@@ -7,7 +7,7 @@ export default class Task {
         this._priority = priority;
         this._dueDate = dueDate;
         this._timeLeft = formatDistanceToNow(dueDate);
-        this.formattedDueDate = format(this.dueDate, 'dd.MM.yyyy HH:mm');
+        this._formattedDueDate = format(this.dueDate, 'dd.MM.yyyy HH:mm');
     }
     
     get priority() {
@@ -20,6 +20,10 @@ export default class Task {
 
     get timeLeft() {
         return this._timeLeft;
+    }
+
+    get formattedDueDate() {
+        return this._formattedDueDate;
     }
 
     set priority(priority) {
@@ -35,12 +39,17 @@ export default class Task {
         if (date instanceof Date) {
             this._dueDate = date;
             this._timeLeft = formatDistanceToNow(date);
+            this._formattedDueDate = format(this.dueDate, 'dd.MM.yyyy HH:mm');
         } else {
             console.error('Uncaught Error: No valid Date object');
         }
     }
 
     set timeLeft(value) {
+        console.error('Uncaught Error: Can\'t change value of timeLeft');
+    }
+
+    set formattedDueDate(value) {
         console.error('Uncaught Error: Can\'t change value of timeLeft');
     }
 }
