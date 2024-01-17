@@ -1,7 +1,7 @@
 import Task from "./Task";
 import ProjectManager from "./ProjectManager";
 import Project from "./Project";
-import { isPast } from 'date-fns';
+import { format, isPast } from 'date-fns';
 
 export default class Display {
     static renderPageLayout() {
@@ -131,6 +131,8 @@ export default class Display {
 
                 collapsibleEditButton.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    this.renderTaskModal('edit', task);
+
                 });
 
                 collapsibleDeleteButton.addEventListener('click', (e) => {
@@ -166,7 +168,9 @@ export default class Display {
         newTaskParagraph.textContent = '+ New';
         li.classList.toggle('add-project');
     
-        li.addEventListener('click', this.renderNewTaskModal);
+        li.addEventListener('click', () => {
+            this.renderTaskModal('new', undefined);
+        });
     
         li.appendChild(newTaskParagraph);
         ul.appendChild(li);
@@ -228,7 +232,7 @@ export default class Display {
         dialog.showModal();
     }
 
-    static renderNewTaskModal() {
+    static renderTaskModal(type, task) {
         const main = document.querySelector('main');
         const nav = document.querySelector('nav');
     
@@ -256,7 +260,6 @@ export default class Display {
     
         const confirmButton = document.createElement('button');
     
-        modalTitle.textContent = 'Add new Task';
         closeIcon.textContent = '\u{00D7}';
     
         titleLabel.textContent = 'Title';
@@ -303,17 +306,45 @@ export default class Display {
         dialog.appendChild(closeIcon);
         dialog.appendChild(modalForm);
         dialog.appendChild(confirmButton);
-                  
-        confirmButton.addEventListener('click', (e) => {
-            if (!isPast(dateInput.value) && dateInput.value) {
-                const newTask = new Task(titleInput.value, descriptionInput.value, priorityInput.value, dateInput.value);
-                ProjectManager.currentProject.addTask(newTask);
-                Display.renderProject(ProjectManager.currentProject);
-                dialog.close();
-                dialog.remove();
-            }
-        });              
-    
+          
+        main.appendChild(dialog);
+
+        if (type === 'new') {
+            modalTitle.textContent = 'Add new Task';
+
+            confirmButton.addEventListener('click', (e) => {
+                if (!isPast(dateInput.value) && dateInput.value) {
+                    const newTask = new Task(titleInput.value, descriptionInput.value, priorityInput.value, dateInput.value);
+                    ProjectManager.currentProject.addTask(newTask);
+                    Display.renderProject(ProjectManager.currentProject);
+                    dialog.close();
+                    dialog.remove();
+                }
+            });     
+        } else if (type === 'edit') {
+            const selectedPriority = document.querySelector(`option[value="${task.priority}"]`);
+            
+            modalTitle.textContent = 'Edit Task';
+
+            titleInput.value = task.title;
+            descriptionInput.textContent = task.description;
+            selectedPriority.setAttribute('selected', 'selected');
+            dateInput.value = `${format(task.dueDate, 'yyyy-MM-dd')}T${format(task.dueDate, 'HH:mm')}`;         
+
+            confirmButton.addEventListener('click', (e) => {
+                if (!isPast(dateInput.value) && dateInput.value) {
+                    task.title = titleInput.value;
+                    task.description = descriptionInput.value;
+                    task.priority = priorityInput.value;
+                    task.dueDate = dateInput.value;
+            
+                    Display.renderProject(ProjectManager.currentProject);
+                    dialog.close();
+                    dialog.remove();
+                }
+            });   
+        }
+        
         dialog.addEventListener('close', () => {
             nav.style.filter = '';
             main.style.filter = '';
@@ -321,8 +352,7 @@ export default class Display {
 
         nav.style.filter = 'blur(5px)';
         main.style.filter = 'blur(5px)';
-    
-        main.appendChild(dialog);
+
         dialog.showModal();
     }
 }
