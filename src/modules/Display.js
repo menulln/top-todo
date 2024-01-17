@@ -43,6 +43,11 @@ export default class Display {
                 this.renderProjectModal('rename', project);
             });
     
+            closeIcon.addEventListener('click', (e) => {
+                e.stopPropagation();
+
+            });
+
             li.appendChild(projectTitle);
             li.appendChild(closeIcon);
             ul.appendChild(li);
@@ -137,32 +142,7 @@ export default class Display {
 
                 collapsibleDeleteButton.addEventListener('click', (e) => {
                     e.stopPropagation();
-
-                    const dialog = document.createElement('dialog');
-                    const dialogTitle = document.createElement('h4');
-                    const dialogConfirmBtn = document.createElement('button');
-                    const dialogCancelBtn = document.createElement('button');
-
-                    dialogTitle.textContent = `Delete ${task.title}?`;
-                    dialogConfirmBtn.textContent = 'Confirm';
-                    dialogCancelBtn.textContent = 'Cancel';
-
-                    dialog.appendChild(dialogTitle);
-                    dialog.appendChild(dialogConfirmBtn);
-                    dialog.appendChild(dialogCancelBtn);
-
-                    main.appendChild(dialog);
-                    dialog.showModal();
-
-                    dialogConfirmBtn.addEventListener('click', () => {
-                        ProjectManager.currentProject.deleteTask(task.title);
-                        Display.renderProject(ProjectManager.currentProject);
-                        dialog.close();
-                    });
-
-                    dialogCancelBtn.addEventListener('click', () => {
-                        dialog.close();
-                    });
+                    this.renderDeleteModal('task', task);
                 });
 
                 div.appendChild(collapsibleTitle);
@@ -380,5 +360,43 @@ export default class Display {
         main.style.filter = 'blur(5px)';
 
         dialog.showModal();
+    }
+
+    static renderDeleteModal(type, element) {
+        const main = document.querySelector('main');
+
+        const dialog = document.createElement('dialog');
+        const dialogTitle = document.createElement('h4');
+        const dialogConfirmBtn = document.createElement('button');
+        const dialogCancelBtn = document.createElement('button');
+
+        dialogTitle.textContent = `Delete ${element.title}?`;
+        dialogConfirmBtn.textContent = 'Confirm';
+        dialogCancelBtn.textContent = 'Cancel';
+
+        dialog.appendChild(dialogTitle);
+        dialog.appendChild(dialogConfirmBtn);
+        dialog.appendChild(dialogCancelBtn);
+
+        main.appendChild(dialog);
+        dialog.showModal();
+
+        if (type === 'task') {
+            dialogConfirmBtn.addEventListener('click', () => {
+                ProjectManager.currentProject.deleteTask(element.title);
+                Display.renderProject(ProjectManager.currentProject);
+                dialog.close();
+            });
+        } else if (type === 'project') {
+            dialogConfirmBtn.addEventListener('click', () => {
+                ProjectManager.deleteProject(element.title);
+                Display.renderProjects(ProjectManager.projects);
+                dialog.close();
+            });
+        }
+
+        dialogCancelBtn.addEventListener('click', () => {
+            dialog.close();
+        });
     }
 }
