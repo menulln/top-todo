@@ -45,7 +45,7 @@ export default class Display {
     
             closeIcon.addEventListener('click', (e) => {
                 e.stopPropagation();
-
+                this.renderDeleteModal('project', project);
             });
 
             li.appendChild(projectTitle);
