@@ -390,7 +390,9 @@ export default class Display {
         } else if (type === 'project') {
             dialogConfirmBtn.addEventListener('click', () => {
                 ProjectManager.deleteProject(element.title);
+                ProjectManager.currentProject = ProjectManager.projects[0];
                 Display.renderProjects(ProjectManager.projects);
+                Display.renderProject(ProjectManager.currentProject);
                 dialog.close();
             });
         }
