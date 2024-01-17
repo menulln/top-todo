@@ -129,6 +129,14 @@ export default class Display {
                 collapsibleEditButton.textContent = 'Edit';
                 collapsibleDeleteButton.textContent = 'Delete';
 
+                collapsibleEditButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+
+                collapsibleDeleteButton.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+
                 div.appendChild(collapsibleTitle);
                 div.appendChild(collapsibleDescription);
                 div.appendChild(collapsiblePriorityTitle);
