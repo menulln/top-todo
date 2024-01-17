@@ -137,6 +137,32 @@ export default class Display {
 
                 collapsibleDeleteButton.addEventListener('click', (e) => {
                     e.stopPropagation();
+
+                    const dialog = document.createElement('dialog');
+                    const dialogTitle = document.createElement('h4');
+                    const dialogConfirmBtn = document.createElement('button');
+                    const dialogCancelBtn = document.createElement('button');
+
+                    dialogTitle.textContent = `Delete ${task.title}?`;
+                    dialogConfirmBtn.textContent = 'Confirm';
+                    dialogCancelBtn.textContent = 'Cancel';
+
+                    dialog.appendChild(dialogTitle);
+                    dialog.appendChild(dialogConfirmBtn);
+                    dialog.appendChild(dialogCancelBtn);
+
+                    main.appendChild(dialog);
+                    dialog.showModal();
+
+                    dialogConfirmBtn.addEventListener('click', () => {
+                        ProjectManager.currentProject.deleteTask(task.title);
+                        Display.renderProject(ProjectManager.currentProject);
+                        dialog.close();
+                    });
+
+                    dialogCancelBtn.addEventListener('click', () => {
+                        dialog.close();
+                    });
                 });
 
                 div.appendChild(collapsibleTitle);
