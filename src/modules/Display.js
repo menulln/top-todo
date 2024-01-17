@@ -99,8 +99,9 @@ export default class Display {
 
             li.addEventListener('click', () => {
                 const taskTitleToClass = task.title.toLowerCase().split(' ').join('-');
-
                 const detailsDiv = document.querySelector(`.${taskTitleToClass}`);
+                
+                arrowIcon.classList.toggle('arrow-rotated');
 
                 if (detailsDiv) {
                     detailsDiv.remove();
