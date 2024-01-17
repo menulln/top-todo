@@ -238,6 +238,11 @@ export default class Display {
         dialog.appendChild(titleInput);
         dialog.appendChild(confirmButton);
 
+        closeIcon.addEventListener('click', () => {
+            dialog.close();
+            dialog.remove();
+        });
+
         nav.style.filter = 'blur(5px)';
         main.style.filter = 'blur(5px)';
 
@@ -358,6 +363,11 @@ export default class Display {
             });   
         }
         
+        closeIcon.addEventListener('click', () => {
+            dialog.close();
+            dialog.remove();
+        });
+
         dialog.addEventListener('close', () => {
             nav.style.filter = '';
             main.style.filter = '';
