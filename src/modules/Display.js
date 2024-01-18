@@ -165,12 +165,41 @@ export default class Display {
                 timeLeft.classList.toggle('done');
                 checkbox.classList.toggle('checked');
 
-                if (task.isDone) {
-                    task.isDone = false;
+                if (!task.isDone) {
+                    task.isDone = true;
+
+                    const dialog = document.createElement('dialog');
+                    const dialogTitle = document.createElement('h4');
+                    const dialogKeepBtn = document.createElement('button');
+                    const dialogDeleteBtn = document.createElement('button');
+            
+                    dialogTitle.textContent = `Nice! Do you want to keep ${task.title} or delete it?`;
+                    dialogKeepBtn.textContent = 'Keep';
+                    dialogDeleteBtn.textContent = 'Delete';
+            
+                    dialog.appendChild(dialogTitle);
+                    dialog.appendChild(dialogKeepBtn);
+                    dialog.appendChild(dialogDeleteBtn);
+    
+                    dialogKeepBtn.addEventListener('click', () => {
+                        dialog.close();
+                        dialog.remove();
+                    });
+    
+                    dialogDeleteBtn.addEventListener('click', () => {
+                        ProjectManager.currentProject.deleteTask(task.title);
+                        Display.renderProject(ProjectManager.currentProject);
+                        dialog.close();
+                        dialog.remove();
+                    });
+
+                    main.appendChild(dialog);
+                    dialog.showModal();
+
                     return;
                 }
 
-                task.isDone = true;
+                task.isDone = false;
             });
 
             li.appendChild(arrowIcon);
