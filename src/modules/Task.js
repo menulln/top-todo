@@ -8,6 +8,7 @@ export default class Task {
         this._dueDate = dueDate;
         this._timeLeft = formatDistanceToNow(dueDate);
         this._formattedDueDate = format(this.dueDate, 'dd.MM.yyyy HH:mm');
+        this.isDone = false;
     }
     
     get priority() {
