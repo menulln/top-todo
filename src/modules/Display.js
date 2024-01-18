@@ -366,6 +366,8 @@ export default class Display {
         if (type === 'new') {
             modalTitle.textContent = 'Add new Task';
 
+            dateInput.value = new Date().toJSON().toString().substring(0, 16);
+            
             confirmButton.addEventListener('click', (e) => {
                 if (!isPast(dateInput.value) && dateInput.value) {
                     const newTask = new Task(titleInput.value, descriptionInput.value, priorityInput.value, dateInput.value);
