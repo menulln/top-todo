@@ -164,6 +164,13 @@ export default class Display {
                 taskTitle.classList.toggle('done');
                 timeLeft.classList.toggle('done');
                 checkbox.classList.toggle('checked');
+
+                if (task.isDone) {
+                    task.isDone = false;
+                    return;
+                }
+
+                task.isDone = true;
             });
 
             li.appendChild(arrowIcon);
