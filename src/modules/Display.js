@@ -439,6 +439,7 @@ export default class Display {
                 ProjectManager.currentProject.deleteTask(element.title);
                 Display.renderProject(ProjectManager.currentProject);
                 dialog.close();
+                dialog.remove();
             });
         } else if (type === 'project') {
             dialogConfirmBtn.addEventListener('click', () => {
@@ -447,11 +448,13 @@ export default class Display {
                 Display.renderProjects(ProjectManager.projects);
                 Display.renderProject(ProjectManager.currentProject);
                 dialog.close();
+                dialog.remove();
             });
         }
 
         dialogCancelBtn.addEventListener('click', () => {
             dialog.close();
+            dialog.remove();
         });
     }
 }
