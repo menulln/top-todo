@@ -210,7 +210,7 @@ export default class Display {
             
             ul.appendChild(li);
         });
-    
+
         const li = document.createElement('li');
         const newTaskParagraph = document.createElement('p');
     
@@ -247,7 +247,6 @@ export default class Display {
                 Display.renderProjects(ProjectManager.projects);
                 dialog.close();
                 dialog.remove();
-                console.log(ProjectManager.projects);
             });
         } else if (type === 'rename') {
             modalTitle.textContent = 'Rename Project';
@@ -257,7 +256,6 @@ export default class Display {
                 Display.renderProjects(ProjectManager.projects);
                 dialog.close();
                 dialog.remove();
-                console.log(ProjectManager.projects);
             });
         }
 
