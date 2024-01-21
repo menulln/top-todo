@@ -25,4 +25,32 @@ export default class ProjectManager {
         LocalStorage.clear();
         LocalStorage.setItem('projects', JSON.stringify(ProjectManager.projects));
     }
+
+    static loadProjects() {
+        this.projects = [];
+        Object.assign(this.projects, JSON.parse(LocalStorage.getItem('projects')));
+        LocalStorage.clear();
+    
+        const projectCount = this.projects.length; 
+        let tempProject;
+    
+        for (let i = projectCount - 1; i >= 0; i--) {
+            tempProject = Object.assign(new Project(), ProjectManager.projects[i])
+            ProjectManager.projects.splice(i, 1);
+            this.addProject(tempProject);
+        }
+    
+        ProjectManager.projects.forEach((project) => {
+            const taskCount = project.tasks.length;
+    
+            let tempTask
+    
+            for (let i = taskCount - 1; i >= 0; i--) {
+                tempTask = new Task(project.tasks[i].title, project.tasks[i].description, project.tasks[i]._priority, project.tasks[i]._dueDate);
+                project.tasks.splice(i, 1);
+                project.addTask(tempTask);
+            }
+        });
+    }
+
 }
