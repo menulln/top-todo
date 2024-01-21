@@ -398,6 +398,8 @@ export default class Display {
                     Display.renderProject(ProjectManager.currentProject);
                     dialog.close();
                     dialog.remove();
+
+                    ProjectManager.saveProjects();
                 }
             });   
         }
