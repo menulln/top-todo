@@ -259,6 +259,8 @@ export default class Display {
                 Display.renderProjects(ProjectManager.projects);
                 dialog.close();
                 dialog.remove();
+
+                ProjectManager.saveProjects();
             });
         }
 
