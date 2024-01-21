@@ -98,6 +98,12 @@ export default class Display {
             timeLeft.classList.toggle('time-left');
             checkbox.classList.toggle('checkbox');
 
+            if (task.isDone) {
+                taskTitle.classList.toggle('done');
+                timeLeft.classList.toggle('done');
+                checkbox.classList.toggle('checked');
+            }
+
             li.addEventListener('click', () => {
                 const taskTitleToClass = task.title.toLowerCase().split(' ').join('-');
                 const detailsDiv = document.querySelector(`.${taskTitleToClass}`);
