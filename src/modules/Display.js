@@ -2,6 +2,7 @@ import Task from "./Task";
 import ProjectManager from "./ProjectManager";
 import Project from "./Project";
 import { format, isPast } from 'date-fns';
+import LocalStorage from "./LocalStorage";
 
 export default class Display {
     static renderPageLayout() {
@@ -246,6 +247,7 @@ export default class Display {
                 ProjectManager.addProject(new Project(titleInput.value));
                 ProjectManager.currentProject = ProjectManager.projects[ProjectManager.projects.length - 1];
                 Display.renderProjects(ProjectManager.projects);
+                Display.renderProject(ProjectManager.currentProject);
                 dialog.close();
                 dialog.remove();
             });
