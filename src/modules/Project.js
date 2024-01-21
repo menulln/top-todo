@@ -1,3 +1,5 @@
+import ProjectManager from "./ProjectManager";
+
 export default class Project {
     constructor(title) {
         this.title = title;
@@ -6,6 +8,7 @@ export default class Project {
 
     addTask(task) {
         this.tasks.push(task);
+        ProjectManager.saveProjects();
     }
 
     deleteTask(taskTitle) {
@@ -14,5 +17,6 @@ export default class Project {
                 return this.tasks.splice(this.tasks.findIndex((task) => task.title === taskTitle), 1);
             }
         });
+        ProjectManager.saveProjects();
     }
 }
