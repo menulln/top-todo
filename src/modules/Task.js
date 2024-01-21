@@ -1,14 +1,14 @@
 import { format, formatDistanceToNow } from "date-fns";
 
 export default class Task {
-    constructor(title, description, priority, dueDate) {
+    constructor(title, description, priority, dueDate, isDone = false) {
         this.title = title;
         this.description = description;
         this._priority = priority;
         this._dueDate = dueDate;
         this._timeLeft = formatDistanceToNow(dueDate);
         this._formattedDueDate = format(this.dueDate, 'dd.MM.yyyy HH:mm');
-        this.isDone = false;
+        this.isDone = isDone;
     }
     
     get priority() {
