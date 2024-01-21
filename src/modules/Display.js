@@ -244,6 +244,7 @@ export default class Display {
 
             confirmButton.addEventListener('click', () => {
                 ProjectManager.addProject(new Project(titleInput.value));
+                ProjectManager.currentProject = ProjectManager.projects[ProjectManager.projects.length - 1];
                 Display.renderProjects(ProjectManager.projects);
                 dialog.close();
                 dialog.remove();
