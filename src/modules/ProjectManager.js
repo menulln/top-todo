@@ -39,6 +39,19 @@ export default class ProjectManager {
             ProjectManager.projects.splice(i, 1);
             this.addProject(tempProject);
         }
+        
+        ProjectManager.projects.sort((a, b) => {
+            const titleA = a.title.toUpperCase();
+            const titleB = b.title.toUpperCase();
+            if (titleA < titleB) {
+              return -1;
+            }
+            if (titleA > titleB) {
+              return 1;
+            }
+          
+            return 0;
+        });
     
         ProjectManager.projects.forEach((project) => {
             const taskCount = project.tasks.length;
@@ -50,6 +63,19 @@ export default class ProjectManager {
                 project.tasks.splice(i, 1);
                 project.addTask(tempTask);
             }
+    
+            project.tasks.sort((a, b) => {
+                const titleA = a.title.toUpperCase();
+                const titleB = b.title.toUpperCase();
+                if (titleA < titleB) {
+                  return -1;
+                }
+                if (titleA > titleB) {
+                  return 1;
+                }
+              
+                return 0;
+            });
         });
     }
 
