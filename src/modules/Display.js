@@ -185,6 +185,8 @@ export default class Display {
                     dialogKeepBtn.addEventListener('click', () => {
                         dialog.close();
                         dialog.remove();
+
+                        ProjectManager.saveProjects();
                     });
     
                     dialogDeleteBtn.addEventListener('click', () => {
@@ -192,6 +194,8 @@ export default class Display {
                         Display.renderProject(ProjectManager.currentProject);
                         dialog.close();
                         dialog.remove();
+
+                        ProjectManager.saveProjects();
                     });
 
                     main.appendChild(dialog);
@@ -201,6 +205,8 @@ export default class Display {
                 }
 
                 task.isDone = false;
+
+                ProjectManager.saveProjects();
             });
 
             li.appendChild(arrowIcon);
