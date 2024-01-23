@@ -24,3 +24,8 @@
 
     --checkbox-clr: #74ff7b;
 }
+
+* {
+    margin: 0;
+    padding: 0;
+}
