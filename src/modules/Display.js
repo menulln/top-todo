@@ -246,6 +246,8 @@ export default class Display {
 
         const dialog = document.createElement('dialog');
 
+        const dialogHeaderDiv = document.createElement('div');
+
         const modalTitle = document.createElement('h3');
         const closeIcon = document.createElement('i');   
 
@@ -284,8 +286,10 @@ export default class Display {
             main.style.filter = '';
         });
 
-        dialog.appendChild(modalTitle);
-        dialog.appendChild(closeIcon);
+        dialogHeaderDiv.appendChild(modalTitle);
+        dialogHeaderDiv.appendChild(closeIcon);
+
+        dialog.appendChild(dialogHeaderDiv);
         dialog.appendChild(titleInput);
         dialog.appendChild(confirmButton);
 
@@ -306,10 +310,12 @@ export default class Display {
         const nav = document.querySelector('nav');
     
         const dialog = document.createElement('dialog');
-    
+
+        const dialogHeaderDiv = document.createElement('div');
+        
         const modalTitle = document.createElement('h3');
         const closeIcon = document.createElement('i');        
-    
+
         const modalForm = document.createElement('form');
         
         const titleLabel = document.createElement('label');
@@ -357,7 +363,7 @@ export default class Display {
     
         dateInput.type = 'datetime-local'
         dateInput.min = new Date().toJSON().toString().substring(0, 16);
-    
+
         priorityInput.appendChild(priorityHigh);
         priorityInput.appendChild(priorityMedium);
         priorityInput.appendChild(priorityLow);
@@ -371,8 +377,10 @@ export default class Display {
         modalForm.appendChild(dateLabel);
         modalForm.appendChild(dateInput);
     
-        dialog.appendChild(modalTitle);
-        dialog.appendChild(closeIcon);
+        dialogHeaderDiv.appendChild(modalTitle);
+        dialogHeaderDiv.appendChild(closeIcon);
+    
+        dialog.appendChild(dialogHeaderDiv);
         dialog.appendChild(modalForm);
         dialog.appendChild(confirmButton);
           
@@ -380,6 +388,8 @@ export default class Display {
 
         if (type === 'new') {
             modalTitle.textContent = 'Add new Task';
+
+            dialog.classList.toggle('dialog-new-task');
 
             dateInput.value = new Date().toJSON().toString().substring(0, 16);
             
