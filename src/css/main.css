@@ -2,3 +2,25 @@
 @import './nav.css';
 @import './task.css';
 @import './dialog.css';
+
+:root {
+    --bg-clr: #1a1a1a;
+    --fg-clr: #212121;
+    --fg-clr-hvr: #282828;
+    --fg-e-clr-hvr: #303030;
+    --text-clr: #eeeeee;
+    --border-clr: #070707;
+    --white: #ffffff;
+
+    --priority-high-clr: #d44760;
+    --priority-medium-clr: #ecea54;
+    --priority-low-clr: #41c94c;
+    --priority-high-border-clr: #9e3548;
+    --priority-medium-border-clr: #e0dd31;
+    --priority-low-border-clr: #2bb136;
+    --priority-high-clr-hvr: #dd506a;
+    --priority-medium-clr-hvr: #f3f16f;
+    --priority-low-clr-hvr: #5ce468;
+
+    --checkbox-clr: #74ff7b;
+}
