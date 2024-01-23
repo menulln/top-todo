@@ -1,0 +1,103 @@
+dialog {
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -50%);
+    padding: 15px 15px 15px 15px;
+    background-color: var(--fg-clr);
+    color: var(--white);
+    border: 1px solid var(--border-clr);
+}
+
+dialog > input,
+dialog > select,
+dialog > textarea {
+    background-color: var(--bg-clr);
+    color: var(--white);
+    border: 1px solid var(--border-clr);   
+    border-radius: 3px;
+}
+
+dialog > input:focus,
+dialog > select:focus,
+dialog > textarea:focus {
+    outline: none;
+    border: 1px solid var(--fg-clr-hvr);   
+} 
+
+dialog > form > *::selection,
+dialog > div > *::selection {
+    background-color: var(--fg-clr);
+}
+
+.dialog-new-task {
+    display: grid;
+    grid-template-columns: 1fr;
+
+}
+
+dialog > div {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+dialog > div > h3 {
+    margin-bottom: 10px;
+}
+
+dialog > div > i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: -10px;
+    padding: 2px 7px 2px 6px;
+    border-radius: 3px;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+dialog > div > i:hover {
+    background-color: var(--fg-e-clr-hvr);
+}
+
+.dialog-new-task > form {
+    grid-area: 2 / 1 / 3 / 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-new-task > form > input,
+.dialog-new-task > form > select,
+.dialog-new-task > form > textarea {
+    margin-bottom: 10px;
+    background-color: var(--bg-clr);
+    color: var(--white);
+    border: 1px solid var(--border-clr);   
+    border-radius: 3px;
+}
+
+.dialog-new-task > form > input:focus,
+.dialog-new-task > form > select:focus,
+.dialog-new-task > form > textarea:focus {
+    outline: none;
+    border: 1px solid var(--fg-clr-hvr);   
+} 
+
+.dialog-new-task > form > textarea {
+    width: 300px;
+    height: 100px;
+}
+
+.dialog-new-task > button {
+    grid-area: 3 / 1 / 4 / 2;
+    background-color: var(--bg-clr);
+    border: 1px solid var(--border-clr);   
+    border-radius: 3px;
+    color: var(--white);
+    height: 35px;
+    cursor: pointer;
+}
+
+.dialog-new-task > button:hover {
+    background-color: var(--fg-clr);
+}
